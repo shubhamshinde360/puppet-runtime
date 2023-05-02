@@ -252,4 +252,16 @@ component 'ruby-3.2.2' do |pkg, settings, platform|
       ]
     end
   end
+
+  if platform.is_windows? && settings[:bindir] != ruby_bindir
+    # If Ruby is not installed to the default location, we need to copy some DLLs
+    # to the Ruby bindir so they can be found at runtime.
+    pkg.install do
+      [
+        "cp #{settings[:bindir]}/libyaml-0-2.dll #{ruby_bindir}",
+        "cp #{settings[:bindir]}/libssp-0.dll #{ruby_bindir}",
+        "cp #{settings[:bindir]}/libffi-8.dll #{ruby_bindir}"
+      ]
+    end
+  end
 end
