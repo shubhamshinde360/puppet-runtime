@@ -84,6 +84,8 @@ component "rubygem-ffi" do |pkg, settings, platform|
       else
         pkg.environment "PATH", "/opt/csw/bin:/opt/pl-build-tools/bin:$(PATH)"
       end
+    elsif platform.name == 'sles-11-x86_64'
+      pkg.environment 'PATH', '/opt/pl-build-tools/bin:$(PATH)'
     else
       pkg.environment "PATH", "/opt/pl-build-tools/bin:/opt/csw/bin:$(PATH)"
     end

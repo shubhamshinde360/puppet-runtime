@@ -118,7 +118,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
     special_flags += " --with-openssl-dir=#{settings[:prefix]} "
   elsif platform.is_solaris? && platform.architecture == "sparc"
     special_flags += " --with-baseruby=#{host_ruby} --enable-close-fds-by-recvmsg-with-peek "
-  elsif platform.name =~ /el-6/
+  elsif platform.name =~ /el-6/ || platform.name =~ /sles-11-x86_64/
     special_flags += " --with-baseruby=no "
   elsif platform.is_windows?
     special_flags = " CPPFLAGS='-DFD_SETSIZE=2048' debugflags=-g --prefix=#{ruby_dir} --with-opt-dir=#{settings[:prefix]} "
@@ -130,6 +130,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
     'osx-11-arm64',
     'osx-12-arm64',
     'redhatfips-7-x86_64',
+    'sles-11-x86_64',
     'sles-12-ppc64le',
     'solaris-10-sparc',
     'solaris-11-sparc',
