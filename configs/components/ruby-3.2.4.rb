@@ -319,7 +319,7 @@ component 'ruby-3.2.4' do |pkg, settings, platform|
       "export ARCHDIR=$${RUBYHDRDIR}/$(shell #{ruby} -e 'puts RbConfig::CONFIG[\"arch\"]')",
       "export INCLUDESTR=\"-I#{settings[:includedir]} -I$${RUBYHDRDIR} -I$${ARCHDIR}\""
     ]
-    steps << ["#{platform.patch} --strip=1 --fuzz=3 --ignore-whitespace --no-backup-if-mismatch < ../rexml_for_CVE-2024-35176.patch"]
+    steps << ["#{platform.patch} --strip=1 --fuzz=0 --ignore-whitespace --no-backup-if-mismatch < ../rexml_for_CVE-2024-35176.patch"]
   end
 
 end
