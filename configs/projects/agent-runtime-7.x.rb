@@ -61,6 +61,10 @@ project 'agent-runtime-7.x' do |proj|
   proj.component 'rubygem-thor'
   proj.component 'rubygem-scanf'
 
+  # Note: We won't need to explicitly add 'rubygem-rexml' to agent-runtime-7.x once ruby is upgraded to 3.2.5 or higher (CVE-2024-35176 and CVE-2024-39908).
+  # This is because the bundled rexml gem version shipped with ruby itself will be free from these CVEs.
+  proj.component 'rubygem-rexml'
+
   if platform.is_linux?
     proj.component "virt-what"
     proj.component "dmidecode" unless platform.architecture =~ /ppc64/
