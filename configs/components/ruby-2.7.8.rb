@@ -141,7 +141,8 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
     'windows-2012r2-x64',
     'windows-2012r2-x86',
     'windows-2019-x64',
-    'windowsfips-2012r2-x64'
+    'windowsfips-2012r2-x64',
+    'windowsfips-2016-x64'
   ]
 
   unless without_dtrace.include? platform.name
