@@ -242,6 +242,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
   elsif platform.is_windows?
     if platform.architecture == "x64"
       rbconfig_changes["CC"] = "x86_64-w64-mingw32-gcc"
+      rbconfig_changes["ruby_version"] = "2.7.0" if platform.name =~ /windowsfips-2016/
     else
       rbconfig_changes["CC"] = "i686-w64-mingw32-gcc"
     end
