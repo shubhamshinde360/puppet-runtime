@@ -176,6 +176,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
   #########
 
   if platform.is_windows?
+    pkg.apply_patch "#{base}/rbconfig_win.patch"
     # With ruby 2.5, ruby will generate cmd files instead of bat files; These
     # cmd wrappers work fine in our environment if they're just renamed as batch
     # files. Rake is omitted here on purpose - it retains the old batch wrapper.
@@ -242,7 +243,6 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
   elsif platform.is_windows?
     if platform.architecture == "x64"
       rbconfig_changes["CC"] = "x86_64-w64-mingw32-gcc"
-      rbconfig_changes["ruby_version"] = "2.7.0" if platform.name =~ /windowsfips-2016/
     else
       rbconfig_changes["CC"] = "i686-w64-mingw32-gcc"
     end
@@ -266,6 +266,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
   pkg.install_file '../DigiCertGlobalRootG2.pem', File.join(certs_dir, 'DigiCertGlobalRootG2.pem')
 
   if rbconfig_changes.any?
+
     pkg.install do
       [
         "#{host_ruby} ../rbconfig-update.rb \"#{rbconfig_changes.to_s.gsub('"', '\"')}\" #{rbconfig_topdir}",
