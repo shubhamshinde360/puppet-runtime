@@ -76,6 +76,7 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
   end
 
   if platform.is_windows?
+    pkg.add_source("#{base}/rbconfig_win.patch")
     pkg.apply_patch "#{base}/windows_ruby_2.5_fixup_generated_batch_files.patch"
     pkg.apply_patch "#{base}/windows_nocodepage_utf8_fallback_r2.5.patch"
     pkg.apply_patch "#{base}/win32_long_paths_support.patch"
@@ -171,12 +172,15 @@ component 'ruby-2.7.8' do |pkg, settings, platform|
     ]
   end
 
+  pkg.build do
+    ["TMP=/var/tmp /usr/bin/patch.exe --binary --strip=1 --fuzz=0 --ignore-whitespace --no-backup-if-mismatch < ../rbconfig_win.patch"]
+  end
+
   #########
   # INSTALL
   #########
 
   if platform.is_windows?
-    pkg.apply_patch "#{base}/rbconfig_win.patch"
     # With ruby 2.5, ruby will generate cmd files instead of bat files; These
     # cmd wrappers work fine in our environment if they're just renamed as batch
     # files. Rake is omitted here on purpose - it retains the old batch wrapper.

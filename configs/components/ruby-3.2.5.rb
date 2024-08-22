@@ -47,6 +47,7 @@ component 'ruby-3.2.5' do |pkg, settings, platform|
   end
 
   if platform.is_windows?
+    pkg.add_source("#{base}/rbconfig_win.patch")
     pkg.apply_patch "#{base}/windows_mingw32_mkmf.patch"
     pkg.apply_patch "#{base}/windows_nocodepage_utf8_fallback_r2.5.patch"
     pkg.apply_patch "#{base}/ruby-faster-load_32.patch"
@@ -194,6 +195,10 @@ component 'ruby-3.2.5' do |pkg, settings, platform|
         #{settings[:host]} \
         #{special_flags}"
     ]
+  end
+
+  pkg.build do
+    ["TMP=/var/tmp /usr/bin/patch.exe --binary --strip=1 --fuzz=0 --ignore-whitespace --no-backup-if-mismatch < ../rbconfig_win.patch"]
   end
 
   #########
