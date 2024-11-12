@@ -35,6 +35,7 @@ component 'curl' do |pkg, settings, platform|
     # exclude -Wl,-brtl
     ldflags = "-L#{settings[:libdir]}"
   else
+    pkg.environment "PKG_CONFIG_PATH", "/usr/local/lib"
     pkg.environment "PATH", "/opt/pl-build-tools/bin:$(PATH):#{settings[:bindir]}"
   end
 
